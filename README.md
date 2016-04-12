@@ -1,1 +1,3 @@
-# test
+- To run or build this project from `console` for `*nix` systems: `./gradlew run` or `./gradlew build`
+- To run or build this project from `console` for `windows` systems: `gradlew.bat run` or `gradlew.bat build`
+- To run this project from `IDE`: execute `test.Main` class
