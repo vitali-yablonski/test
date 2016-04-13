@@ -1,13 +1,24 @@
 package test;
 
-import test.beans.*;
-import test.utils.Calculator;
+import test.beans.Circle;
+import test.beans.Figure;
+import test.beans.Parallelogram;
+import test.beans.Rhombus;
+import test.beans.Square;
+import test.beans.Triangle;
+import test.utils.FigureUtils;
 import test.utils.CircleFilter;
+import test.utils.Filter;
 import test.utils.PerimeterComparator;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     private static List<Figure> figures1 = new ArrayList<Figure>(){{
         add(new Circle(10));
@@ -35,16 +46,23 @@ public class Main {
         add(new Circle(15));
     }};
 
-    public static void main(String[] a) {
-        println(Calculator.newInstance().add(figures1).calculateArea().calculatePerimeter().getList());
-        println(Calculator.newInstance().add(figures2).add(figures3).calculateArea().calculatePerimeter().getList());
-        println(Calculator.newInstance().add(figures4).filter(new CircleFilter()).calculatePerimeter().sort(new PerimeterComparator()).getList());
+    public static void main(String[] arg) {
+        // calculate the area and perimeter of each figure from the list
+        println(FigureUtils.newInstance().add(figures1).calculateArea().calculatePerimeter().getList());
+
+        // make batch calculation of area and perimeter for list of figures
+        println(FigureUtils.newInstance().add(figures2).add(figures3).calculateArea().calculatePerimeter().getList());
+
+        // sort figures by area or perimeter and filter by type
+        Filter circleFilter = new CircleFilter();
+        Comparator<Figure> perimeterComparator = new PerimeterComparator();
+        println(FigureUtils.newInstance().add(figures4).filter(circleFilter).calculatePerimeter().sort(perimeterComparator).getList());
     }
 
     private static void println(List<Figure> figures) {
-        System.out.println("\nTest: ");
+        logger.info("Test:");
         for (Figure figure : figures) {
-            System.out.println(figure);
+            logger.info(figure.toString());
         }
     }
 

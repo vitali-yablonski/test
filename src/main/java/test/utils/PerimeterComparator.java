@@ -1,7 +1,6 @@
 package test.utils;
 
 import test.beans.Figure;
-
 import java.util.Comparator;
 
 public class PerimeterComparator implements Comparator<Figure>{

@@ -1,10 +1,25 @@
 package test.utils;
 
-import test.algorithms.*;
-import test.beans.*;
-import java.util.*;
+import test.algorithms.Algorithms;
+import test.algorithms.CircleAlgorithms;
+import test.algorithms.ParallelogramAlgorithms;
+import test.algorithms.RhombusAlgorithms;
+import test.algorithms.SquareAlgorithms;
+import test.algorithms.TriangleAlgorithms;
+import test.beans.Circle;
+import test.beans.Figure;
+import test.beans.Parallelogram;
+import test.beans.Rhombus;
+import test.beans.Square;
+import test.beans.Triangle;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Calculator {
+public class FigureUtils {
 
     private Map<Class, Algorithms> algorithms = new HashMap<Class, Algorithms>(){{
         put(Circle.class, new CircleAlgorithms());
@@ -16,24 +31,24 @@ public class Calculator {
 
     private List<Figure> figures = new ArrayList<Figure>();
 
-    private Calculator() {
+    private FigureUtils() {
     }
 
-    public static Calculator newInstance() {
-        return new Calculator();
+    public static FigureUtils newInstance() {
+        return new FigureUtils();
     }
 
-    public Calculator add(Figure figure) {
+    public FigureUtils add(Figure figure) {
         this.figures.add(figure);
         return this;
     }
 
-    public Calculator add(List<Figure> figures) {
+    public FigureUtils add(List<Figure> figures) {
         this.figures.addAll(figures);
         return this;
     }
 
-    public Calculator calculateArea() {
+    public FigureUtils calculateArea() {
         for (Figure figure : figures) {
             double area = algorithms.get(figure.getClass()).calculateArea(figure);
             figure.setArea(area);
@@ -41,7 +56,7 @@ public class Calculator {
         return this;
     }
 
-    public Calculator calculatePerimeter() {
+    public FigureUtils calculatePerimeter() {
         for (Figure figure : figures) {
             double perimeter = algorithms.get(figure.getClass()).calculatePerimeter(figure);
             figure.setPerimeter(perimeter);
@@ -49,7 +64,7 @@ public class Calculator {
         return this;
     }
 
-    public Calculator filter(Filter filter) {
+    public FigureUtils filter(Filter<Figure> filter) {
         List<Figure> collectFigures = new ArrayList<Figure>();
         for (Figure figure : figures) {
             if (filter.filter(figure)) {
@@ -60,7 +75,7 @@ public class Calculator {
         return this;
     }
 
-    public Calculator sort(Comparator<Figure> comparator) {
+    public FigureUtils sort(Comparator<Figure> comparator) {
         Collections.sort(figures, comparator);
         return this;
     }
