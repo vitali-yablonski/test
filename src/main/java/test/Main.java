@@ -54,7 +54,7 @@ public class Main {
         println(FigureUtils.newInstance().add(figures2).add(figures3).calculateArea().calculatePerimeter().getList());
 
         // sort figures by area or perimeter and filter by type
-        Filter circleFilter = new CircleFilter();
+        Filter<Figure> circleFilter = new CircleFilter();
         Comparator<Figure> perimeterComparator = new PerimeterComparator();
         println(FigureUtils.newInstance().add(figures4).filter(circleFilter).calculatePerimeter().sort(perimeterComparator).getList());
     }
